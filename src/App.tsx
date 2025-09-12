@@ -114,19 +114,24 @@ function App() {
         </div>
       ))}
       <hr />
-      <h2>Explanation</h2>
-      <p>
-        Reliable Causal Broadcast is pre-requisite for operation-based CRDTs (Conflict-free Replicated Data Types). It ensures that messages (operations) are delivered to all nodes in an order that respects their causal relationships. This means that if one message causally depends on another, the dependent message will not be delivered before the message it depends on.
-      </p>
-      <p>
-        Version vector at position <i>i</i> means "the number of messages from node <i>i</i> that have been delivered to this node". A message m1 causally precedes message m2 if m1's version vector is less than or equal to m2's version vector in all positions and strictly less in at least one position. This means that for a message to be delivered, all messages that causally precede it must have already been delivered.
-      </p>
-      <h2>Try it out</h2>
-      <p>
-        You can try it yourself by sending "Helo" from Alice and then sending "Hello*" fix from Alice before delivering the first message to Bob and Carol. The buttons to send the second message will be disabled forcing you to first deliver the initial "Helo" message.
-      </p>
-    </>
-  )
+
+  <h2>Explanation</h2>
+
+  This playground lets you broadcast messages between Alice, Bob and Carol. Sending a message adds it to list of undelivered messages. You can then deliver those messages in causal order.
+
+  Reliable Causal Broadcast is a pre-requisite for operation-based CRDTs (Conflict-free Replicated Data Types).
+
+  <h3>Version vectors</h3>
+
+  We use version vectors to achieve causal delivery.
+  Version vector at position *i* means "the number of messages from node *i* that have been delivered to this node". A message `m1` causally happens-before message `m2` if `m1`'s version vector is less than or equal to `m2`'s version vector in all positions and strictly less in at least one position. This means that for a message to be delivered, all messages that causally happen-before it must have already been delivered.
+
+  <h3>Try It Out</h3>
+
+  You can try it yourself by sending "Helo" from Alice and then sending "Hello*" fix from Alice before delivering the first message to Bob and Carol. The buttons to send the second message will be disabled, forcing you to first deliver the initial "Helo" message.
+
+    </>  
+    );
 }
 
 export default App;
